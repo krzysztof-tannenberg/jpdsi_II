@@ -19,14 +19,29 @@
 	
 	
   		Kwota:
-  		
-  		<p:inputText id ="x" value="#{kredytBB.x}" required="true" requiredMessage="Brak kwoty" />
+  		<p:inputText id ="x" value="#{kredytBB.x}" required="true" requiredMessage="Uzupełnij kwote"
+					requiredMessage="Uzupełnij kwote"
+					converterMessage="Przyjmowane sa tylko cyfry"
+					validatorMessage="Minimalna kwota to 555 ">
+					<f:validateDoubleRange minimum="555" />
+		</p:inputText>
   		
   		Ilość rat:
-  		<p:inputText id ="y" value="#{kredytBB.y}" required="true" requiredMessage="Brak ilości rat" />
-		
+  		<p:inputText id ="y" value="#{kredytBB.y}" required="true"
+					requiredMessage="Uzupełnij ilośc rat"
+					converterMessage="Wpisz wyłącznie cyfry"
+					validatorMessage="Minimalna okres wynosi 1 rok a maksymalnie 20 lat.">
+					<f:validateDoubleRange minimum="1" maximum="20" />
+		</p:inputText>
+				
+				
 		Oprocentowanie:
-		<p:inputText id ="z" value="#{kredytBB.r}" required="true" requiredMessage="Brak oprocentowania" />
+		<p:inputText id ="z" value="#{kredytBB.r}" required="true"
+					requiredMessage="Uzupełnij oprocentowanie"
+					converterMessage="Wpisz wyłącznie cyfry"
+					validatorMessage="Minimalne oprocentowanie wynosi 50%.">
+					<f:validateDoubleRange maximum="50" />
+		</p:inputText>
 		
 	
 	<div class="wiadomosci" style="padding:50px;">	
