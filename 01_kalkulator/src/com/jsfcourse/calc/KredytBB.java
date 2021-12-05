@@ -91,4 +91,14 @@ public class KredytBB {
 	public String info() {
 		return "info";
 	}
+	
+	@Inject
+	FacesContext ctx;
+
+	public String calc() {
+		if (doTheMath()) {
+			return "showresult";
+		}
+		return null;
+	}
 }
