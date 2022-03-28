@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/login-template.xhtml">
+	<ui:define name="pageContent">
+		<p:panel style="text-align:justify;">
+			<h:form>
+				<p:panelGrid columns="2" styleClass="ui-noborder">
+					<h:outputLabel for="login" value="Login:" />
+					<p:inputText id="login" value="#{loginBB.login}" required="true"
+						requiredMessage="Podaj login" 
+						style="width:100%"/>
+					<h:outputLabel for="pass" value="Hasło:" />
+					<p:password id="pass" value="#{loginBB.password}" required="true"
+						requiredMessage="Podaj hasło" toggleMask="true" redisplay="true" />
+				</p:panelGrid>
+
+				<p:commandButton value="Zaloguj" action="#{loginBB.doLogin()}"
+					update="@form" styleClass="ui-button-secondary"/>
+
+				<p:messages id="msg" />
+			</h:form>
+		</p:panel>
+		<p:panel style="text-align:justify;">
+		Działamy na rynku od 2021 roku – od tej pory poprzez dynamiczny i nieustanny rozwój przedsiębiorstwa,
+        zajęliśmy czołowe miejsce na rynku wypożyczalni samochodów w Polsce. Dwukrotnie zostaliśmy nagrodzeni prestiżową nagrodą FLEET DERBY za rok 2013 i 2014 oraz za 2018,
+        a także nagrodami DIAMENT FORBES 2016 i EKOFLOTA 2016 i GEPARD BIZNESU.
+        <br></br><br></br>
+        Jesteśmy sprawdzoną wypożyczalnią samochodów oferującą wynajem samochodów
+        m.in. w Warszawie, Łodzi, Lublinie, Rzeszowie, Krakowie, Katowicach, Wrocławiu, Poznaniu, Szczecinie, Gdyni, Białymstoku,
+        Bydgoszczy i Trójmieście oraz w pozostałych miastach sieci 39 oddziałów w całej Polsce. Naszą stabilną pozycję rynkową potwierdza przynależność do Grupy Firm Rent a Car.
+		</p:panel>
+		
+	</ui:define>
+</ui:composition>
+</html>

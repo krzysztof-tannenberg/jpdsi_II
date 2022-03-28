@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <f:metadata>
+	<f:viewAction action="#{carRentBB.onLoad()}" />
+</f:metadata> <ui:composition template="/templates/page-template.xhtml">
+	<ui:define name="pageContent">
+
+		<p:panel>
+Podsumowanie zamówienia:
+<h:form rendered="#{carRentBB.car != null}">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText value="Marka: " />
+					<h:outputText value="#{carRentBB.car.model.brand}" />
+					<h:outputText value="Model: " />
+					<h:outputText value="#{carRentBB.car.model.nameModel}" />
+					<h:outputText value="Cena: " />
+					<h:outputText value="#{carRentBB.car.price} zł" />
+					<h:outputText value="Przebieg: " />
+					<h:outputText value="#{carRentBB.car.mileage} km" />
+					<h:outputText value="Rok Produkcji: " />
+					<h:outputText value="#{carRentBB.car.year_of_production}" />
+				</h:panelGrid>
+				<h:outputText
+					value="#{carListBB.setLogin(remoteClient.details.login)}"
+					id="login" />
+				<p:commandButton value="Potwierdzam wypożyczenie"
+					action="#{carListBB.confirmRent(carRentBB.car)}" update="@form growl"
+					rendered="#{carRentBB.car.status==0}" style="margin-right: 2px;"
+					styleClass="ui-button-outlined ui-button-warning" icon="pi pi-user" />
+
+				<h:link outcome="CarList" style="margin-top: 10px"
+					rendered="#{carRentBB.car.status==1}">
+					<p:button value="Wróc do Listy Samochodów" 
+						rendered="#{carRentBB.car.status==1}"
+						styleClass="ui-button-info" />
+				</h:link>
+				<p:growl id="growl" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+			</h:form>
+		</p:panel>
+
+
+	</ui:define>
+</ui:composition> </html>

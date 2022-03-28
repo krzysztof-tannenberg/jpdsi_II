@@ -1,0 +1,192 @@
+body {
+     font-family: 'Lato', 'Arial', sans-serif;
+     background-color: rgb(255, 255, 255);
+     background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/the-aerial-photograph-of-the-outdoor-warehouse-of-royalty-free-image-1092018132-1550780537.jpg');
+     background-repeat: no-repeat;
+     background-position: center center;
+     background-attachment: fixed;
+     background-size: cover;
+     margin: 0 auto;
+     display: flex;
+     flex-direction: column;
+     justify-content: right;
+     width: 60%;
+     min-height: 100vh;
+}
+ a {
+     color:black;
+     text-decoration: none;
+}
+ a:hover {
+     color: rgb(0, 128, 255);
+}
+ .ui-panel {
+     margin: 0 0.5em 1em 0.5em;
+}
+ #header {
+     margin-top: 1em;
+     text-align: center;
+}
+
+body .ui-datatable .ui-datatable-data > tr.ui-state-highlight {
+    background: rgb(69 148 243 / 40%);
+    color: rgb(0 69 254);
+}
+
+ #j_idt8_content, .ui-panelgrid-cell .ui-widget-content .ui-panel .ui-widget .ui-widget-content .ui-corner-all{
+     background:#0080ff;
+     color:black;
+}
+ body .ui-panelgrid .ui-panelgrid-cell {
+     border: 1px solid #383838;
+     background: #1e1e1e;
+     color: black;
+     padding: 1rem;
+}
+ body .ui-inputfield{
+     background: #c0c0c0;
+     color:black;
+}
+ .ui-button-text,.ui-panel,#j_idt9, #j_idt9_content, #j_idt12, #j_idt12_content{
+     background:#0080ff;
+}
+ body .ui-panel .ui-panel-titlebar {
+     background:#0080ff;
+     color:white;
+}
+ body .ui-inputtext{
+     color: black;
+}
+ body .ui-panelgrid .ui-panelgrid-cell, #j_idt12, #j_idt12_content, .ui-panel-content{
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+}
+ body .ui-panel, .ui-panel-content, .ui-dialog-content, .ui-widget-content{
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color:black;
+}
+ body .ui-panel .ui-panel-content {
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color:black;
+}
+
+ body .ui-dialog .ui-dialog-content {
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     margin-top:10px;
+     margin-top:10px;
+}
+
+ body .ui-datatable .ui-datatable-data > tr {
+     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color: black;
+}
+ body .ui-selectonemenu .ui-selectonemenu-label {
+     background: #0080ff;
+     color:white;
+}
+ body .ui-datatable .ui-paginator.ui-paginator-top,body .ui-datatable .ui-paginator.ui-paginator-bottom {
+     border-width: 1px 0 1px 0;
+     border-radius: 0;
+     display: block;
+}
+ body .ui-dialog .ui-dialog-titlebar {
+     background: #0080ff;
+     color: rgba(255, 255, 255, 0.87);
+     font-weight: 700;
+     border-bottom: 0 none;
+     padding: 1.5rem;
+}
+ body .ui-paginator .ui-paginator-current, body .ui-paginator .ui-paginator-rpp-options {
+     color: black;
+}
+ body .ui-datatable .ui-datatable-data > tr.ui-state-hover {
+     background: #0080ff;
+     color: black;
+}
+ body .ui-paginator .ui-paginator-first, body .ui-paginator .ui-paginator-prev, body .ui-paginator .ui-paginator-next, body .ui-paginator .ui-paginator-last {
+     color: rgb(0 0 0 / 100%);
+}
+ body .ui-paginator {
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color:black;
+}
+
+ body .ui-selectonemenu-panel, .ui-selectonemenu-items, .ui-selectonemenu-item.ui-state-highlight {
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color: black;
+}
+ #j_idt35:status_1 {
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color: black;
+}
+ #j_idt35:status_0 {
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color: black;
+}
+body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-state-highlight {
+     background: rgb(238 230 228 / 98%);
+     color: rgb(0 0 0);
+}
+ body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item{
+     background: rgb(238 230 228 / 98%);
+     color: rgb(0 0 0);
+}
+ body .ui-paginator, .ui-paginator-current, .ui-paginator, .ui-paginator-rpp-options {
+     margin: 0.5rem;
+     display: inline-block;
+     vertical-align: middle;
+     color:black;
+}
+ body .ui-sidebar {
+     background-image:url('http://1.bp.blogspot.com/-R6n2hcg-vck/UN1UOx_dA1I/AAAAAAAAD5E/qdF4sA6SAPM/s1600/repeating_light_gray_texture.jpg');
+     color: black;
+     padding: 1rem;
+     border: 1px solid #383838;
+     box-shadow: none;
+}
+body .ui-widget {
+  
+    color: black;
+}
+
+
+ #footer {
+     text-align: center;
+     position: sticky;
+     top: 100%;
+}
+ #wrapper {
+     display: flex;
+     color:white;
+}
+ #leftDiv {
+     text-align: left;
+     width: 33%;
+}
+ #middleDiv {
+     text-align: center;
+     width: 33%;
+}
+ #rightDiv {
+     text-align: right;
+     width: 33%;
+}
+ #menuButtonPosAbs {
+     position: fixed;
+     top: 20px;
+     right: 20px;
+}
+ #menuButtonPosSti {
+     position: sticky;
+     top: 20px;
+     right: 20px;
+}
+ #imgcar {
+     margin-top: 0.5em;
+     width: 300px;
+     height: auto;
+     display:block;
+     margin-left:auto;
+     margin-right:auto;
+}
+ 

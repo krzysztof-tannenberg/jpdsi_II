@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/main-template.xhtml">
+
+	<ui:define name="title">
+		<div id="wrapper">
+		<div id="leftDiv"></div>
+			<div id="middleDiv">
+				<h3>Wypożyczalnia samochodów</h3>
+			</div>
+
+			<div id="rightDiv">
+				<h3>
+					<h:outputText value="Użytkownik : #{remoteClient.details.login}" />
+				</h3>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:sidebar widgetVar="sidebar" position="right" baseZIndex="10000">
+			<h1 style="font-weight: normal">Nawigacja</h1>
+			
+					<ul>
+					<li>
+					<h:link value="Home" outcome="/pages/salon/main" />				
+				</li>
+				<li>
+					<h:link value="Lista Samochodów" outcome="/pages/salon/CarList" />
+
+				</li>
+				<ui:fragment rendered="#{remoteClient.isInRole('Admin')}">
+				 <li>
+					<h:link value="Spis Klientów" outcome="/pages/admin/ClientList" />
+						
+				</li></ui:fragment>
+				<ui:fragment rendered="#{remoteClient.isInRole('User')}">
+				<li>
+					<h:link value="Moje Zamówienia" outcome="/pages/salon/RentHistory" />				
+				</li>
+				</ui:fragment>
+				</ul>
+			
+			<br/>
+			
+			<h:form>
+				<p:commandButton value="Wyloguj" action="#{loginBB.doLogout()}" style="position:fixed;top:200px;right: 35%;" styleClass="ui-button-secondary" />
+			</h:form>
+			
+			
+		</p:sidebar>
+
+		<div id="menuButtonPosAbs">
+			<div id="menuButtonPosSti">
+				<h:form>
+					<p:commandButton icon="pi pi-list"
+						oncomplete="PF('sidebar').show()" id="menuButton" styleClass="ui-button-secondary"/>
+				</h:form>
+			</div>
+		</div>
+		<ui:insert name="pageContent"></ui:insert>
+	</ui:define>
+
+</ui:composition>
+</html>

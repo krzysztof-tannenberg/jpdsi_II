@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+ <ui:composition template="/templates/page-template.xhtml">
+	<ui:define name="pageContent">
+
+		<p:panel>
+
+			<h:form id="Dodaj">
+
+				<h:panelGrid columns="3" cellpadding="6">
+					
+					
+					<p:outputLabel for="model" value="Model auta"/>
+                	<p:selectOneMenu id="model" value="#{carNewBB.car.model.idmodel}" requiredMessage="Wybierz model">
+                        <f:selectItem itemLabel="Micra" itemValue="1"/>
+                        <f:selectItem itemLabel="Passat" itemValue="2"/>
+                        <f:selectItem itemLabel="Garbus" itemValue="3"/>
+                        <f:selectItem itemLabel="Civic" itemValue="4"/>
+                        <f:selectItem itemLabel="Accord" itemValue="5"/>
+                        <f:selectItem itemLabel="Prelude" itemValue="6"/>
+                        <f:selectItem itemLabel="CRV" itemValue="7"/>
+                        <f:selectItem itemLabel="CRX" itemValue="8"/>
+                    </p:selectOneMenu>
+					<p:message for="model" />
+					
+					<h:outputLabel for="Vin" value="*Vin:" />
+					<p:inputText id="Vin" value="#{carNewBB.car.vin}"
+						required="true" requiredMessage="Podaj Vin"
+						validatorMessage="Wymagane 17 cyfr">
+						<f:validateRegex pattern="^\d{17}$" />
+					</p:inputText>
+					<p:message for="Vin" />
+					
+					<h:outputLabel for="Price" value="Cena:" />
+					<p:inputText id="Price" value="#{carNewBB.car.price}"
+						required="false" requiredMessage="Cena"
+						validatorMessage="Maksimum 15 znaków">
+						<f:validateLength maximum="15" />
+					</p:inputText>
+					<p:message for="Price" />
+
+					<h:outputLabel for="mileage" value="*Przebieg:" />
+					<p:inputText id="mileage" value="#{carNewBB.car.mileage}"
+						required="true" requiredMessage="Podaj Przebieg"
+						validatorMessage="Maksimum 7 znaków">
+						<f:validateLength maximum="7" />
+					</p:inputText>
+					<p:message for="mileage" />
+
+					<h:outputLabel for="Year" value="*Rok Produkcji:" />
+					<p:inputText id="Year" value="#{carNewBB.car.year_of_production}"
+						required="true" requiredMessage="Podaj Rok"
+						validatorMessage="Maksimum 45 znaków">
+						<f:validateLength maximum="45" />
+					</p:inputText>
+					<p:message for="Year" />
+				
+					<h:outputLabel for="Img" value="Obrazek:" />
+					<p:inputText id="Img" value="#{carNewBB.car.img}"
+						required="false" validatorMessage="Maksimum 245 znaków">
+						<f:validateLength maximum="245" />
+					</p:inputText>
+					<p:message for="Img" />
+					
+
+
+
+
+				</h:panelGrid>
+				<h:outputText value="*Pola wymagane"/>
+				<p:divider />
+
+				<p:commandButton value="Dodaj auto" action="#{carNewBB.saveCar()}"
+					style="margin-right: 1em;" update="@form"
+					styleClass="ui-button-secondary" />
+
+				<p:button value="Anuluj" outcome="ClientList"
+					styleClass="ui-button-secondary" />
+
+				<p:growl id="growl" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+			</h:form>
+		</p:panel>
+
+
+	</ui:define>
+</ui:composition> </html>

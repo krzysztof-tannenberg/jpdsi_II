@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <ui:composition
+	template="/templates/page-template.xhtml">
+	<ui:define name="pageContent">
+
+		<p:panel header="Filtr wyszukiwania:" toggleable="true"
+			collapsed="true">
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="Imie" />
+					<p:inputText value="#{carClientBB.firstName}" />
+
+					<h:outputLabel value="Nazwisko" />
+					<p:inputText value="#{carClientBB.secondName}" />
+
+					<h:outputLabel value="Telefon" />
+					<p:inputText value="#{carClientBB.telefon}" />
+
+					<h:outputLabel value="Nip" />
+					<p:inputText value="#{carClientBB.nip}" />
+
+					<p:commandButton value="Szukaj" update="data-table"
+						styleClass="ui-button-secondary" />
+					<p:commandButton value="Wyczyść filter"
+						action="#{carClientBB.clearFilter()}" update="@form data-table"
+						styleClass="ui-button-secondary" />
+				</h:panelGrid>
+			</h:form>
+		</p:panel>
+		<p:panel header="Panel Administratora" toggleable="true"
+			collapsed="true" rendered="#{remoteClient.isInRole('Admin')}">
+			<h:form>
+				<p:commandButton value="Dodaj nowego Klienta"
+					action="#{carClientBB.newClient()}"
+					styleClass="ui-button-secondary" />
+			</h:form>
+		</p:panel>
+		<p:panel>
+			<div class="card"> <h:form id="data-table">
+
+				<p:dataTable var="client" value="#{carClientBB.lazyclient}"
+					paginator="true" rows="4"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="4,8,12" selectionMode="single"
+					selection="#{carClientBB.selectedClient}" id="clientTable">
+					<p:ajax event="rowSelect" update="@form:clientDetail"
+						oncomplete="PF('clientDialog').show()" />
+
+					<p:column headerText="Imie">
+						<h:outputText value="#{client.firstName}" />
+					</p:column>
+
+					<p:column headerText="Nazwisko">
+						<h:outputText value="#{client.secondName}" />
+					</p:column>
+
+					<p:column headerText="telefon">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{client.telefon}" />
+					</p:column>
+
+					<p:column headerText="nip">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{client.nip}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<p:dialog header="Klient" widgetVar="clientDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="clientDetail" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty carClientBB.selectedClient}"
+							columnClasses="label,value" style="width:100%">
+
+							<h:outputText value="Imie: " />
+							<h:outputText value="#{carClientBB.selectedClient.firstName}" />
+
+							<h:outputText value="Nazwsiko: " />
+							<h:outputText value="#{carClientBB.selectedClient.secondName}" />
+
+							<h:outputText value="telefon: " />
+							<h:outputText value="#{carClientBB.selectedClient.telefon}" />
+
+							<h:outputText value="nip: " />
+							<h:outputText value="#{carClientBB.selectedClient.nip}" />
+
+						</p:panelGrid>
+						<p:commandButton value="Edytuj"
+							action="#{carClientBB.editClient(carClientBB.selectedClient)}"
+							style="margin-right: 2px;" styleClass="ui-button-secondary" />
+						<p:divider
+							rendered="#{carClientBB.checkIfRented(carClientBB.selectedClient)}" />
+
+						<h:outputText value="Wypożyczony Samochód:"
+							rendered="#{carClientBB.checkIfRented(carClientBB.selectedClient)}" />
+						<ui:repeat var="rent"
+							value="#{carClientBB.getRentInfo(carClientBB.selectedClient)}"
+							rendered="#{(not empty carClientBB.selectedClient) and (carClientBB.checkIfRented(carClientBB.selectedClient))}">
+
+
+							<p:panelGrid columns="3"
+								rendered="#{not empty carClientBB.selectedClient}"
+								columnClasses="label,value" style="width:100%">
+								<h:outputText value="Vin" />
+								<h:outputText value="#{rent.car.vin}" />
+								<p:commandButton value="Zwrot" update="@form data-table:growl"
+									action="#{carRentedBB.carReturn(rent)}"
+									style="margin-right: 2px;" styleClass="ui-button-secondary" />
+							</p:panelGrid>
+
+							<h:outputText value=" " />
+						</ui:repeat>
+
+					</p:outputPanel>
+
+				</p:dialog>
+				<p:growl id="growl" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+			</h:form> </div>
+		</p:panel>
+
+	</ui:define>
+</ui:composition> </html>
+
+

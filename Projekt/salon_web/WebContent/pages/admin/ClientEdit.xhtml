@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <f:metadata>
+	<f:viewAction action="#{clientEditBB.onLoad()}" />
+</f:metadata> <ui:composition template="/templates/page-template.xhtml">
+	<ui:define name="pageContent">
+
+		<p:panel>
+
+			<h:form rendered="#{clientEditBB.client != null}">
+
+				<h:panelGrid columns="3" cellpadding="5">
+					<h:outputLabel for="name" value="*Imię:" />
+					<p:inputText id="name" value="#{clientEditBB.client.firstName}"
+						required="true" requiredMessage="Podaj imię"
+						validatorMessage="Z duzej litery">
+						<f:validateRegex
+							pattern="^[A-ZĄĘŁŃÓŚŹŻ][a-zA-ząćęłńóśźżĄĘŁŃÓŚŹŻ\x20]{2,14}$" />
+					</p:inputText>
+					<p:message for="name" />
+					
+					<h:outputLabel for="secondName" value="*Nazwisko:" />
+					<p:inputText id="secondName"
+						value="#{clientEditBB.client.secondName}" required="true"
+						requiredMessage="Podaj Nazwisko"
+						validatorMessage="Z duzej litery">
+						<f:validateRegex
+							pattern="^[A-ZĄĘŁŃÓŚŹŻ][a-zA-ząćęłńóśźżĄĘŁŃÓŚŹŻ\x20]{2,34}$" />
+					</p:inputText>
+					<p:message for="secondName" />
+					
+					<h:outputLabel for="nip" value="*Nip:" />
+					<p:inputText id="nip" value="#{clientEditBB.client.nip}"
+						required="true" requiredMessage="Podaj Nip"
+						validatorMessage="Wymagane 9 Cyfry">
+						<f:validateRegex pattern="^\d{9}$" />
+					</p:inputText>
+					<p:message for="nip" />
+
+					<h:outputLabel for="telefon" value="*Numer telefonu" />
+					<p:inputText id="telefon" value="#{clientEditBB.client.telefon}"
+						required="true" requiredMessage="Podaj numer"
+						validatorMessage="Wymagane 9 Cyfry">
+						<f:validateRegex pattern="^\d{9}$" />
+					</p:inputText>
+					<p:message for="telefon" />
+
+					<h:outputLabel for="mail" value="Adres email" />
+					<p:inputText id="mail" value="#{clientEditBB.client.mail}"
+						required="false" validatorMessage="Maksimum 45 znakow">
+						<f:validateLength maximum="45" />
+					</p:inputText>
+					<p:message for="mail" />
+
+					<h:outputLabel for="login" value="*login" />
+					<p:inputText id="login" value="#{clientEditBB.account.login}"
+						required="false" validatorMessage="Maksimum 45 znakow">
+						<f:validateLength maximum="45" />
+					</p:inputText>
+					<p:message for="login" />
+
+					<h:outputLabel for="password" value="*Hasło" />
+					<p:inputText id="password" value="#{clientEditBB.account.password}"
+						required="false" validatorMessage="Maksimum 45 znakow">
+						<f:validateLength maximum="45" />
+					</p:inputText>
+					<p:message for="password" />
+
+
+				</h:panelGrid>
+				<h:outputText value="* Pola Wymagane"/>
+				<p:divider />
+
+				<p:commandButton value="Zapisz" action="#{clientEditBB.saveData()}"
+					style="margin-right: 1em;" update="@form"
+					styleClass="ui-button-secondary" />
+
+				<p:button value="Anuluj" outcome="ClientList"
+					styleClass="ui-button-secondary" />
+
+				<p:growl id="growl" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+			</h:form>
+		</p:panel>
+
+
+	</ui:define>
+</ui:composition> </html>

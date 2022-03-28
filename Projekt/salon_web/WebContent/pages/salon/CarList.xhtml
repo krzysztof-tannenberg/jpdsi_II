@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <ui:composition
+	template="/templates/page-template.xhtml">
+	<ui:define name="pageContent">
+
+		<p:panel header="Filtr wyszukiwania:" toggleable="true"
+			collapsed="true">
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<h:outputLabel value="Vin" rendered="#{remoteClient.isInRole('Admin')}"/>
+					<p:inputText value="#{carListBB.vin}" rendered="#{remoteClient.isInRole('Admin')}"/>
+
+					<h:outputLabel value="Marka" />
+					<p:inputText value="#{carListBB.brand}" />
+
+					<h:outputLabel value="Model" />
+					<p:inputText value="#{carListBB.nameModel}" />
+
+					<h:outputLabel value="Cena Minimalna" />
+					<p:inputNumber value="#{carListBB.priceMIN}" padControl="false"
+						thousandSeparator="" />
+
+					<h:outputLabel value="Cena Maksymalna" />
+					<p:inputNumber value="#{carListBB.priceMAX}" padControl="false"
+						thousandSeparator="" />
+
+					<h:outputLabel value="Status wypożyczenia samochodu:"
+						rendered="#{remoteClient.isInRole('Admin')}" />
+					<p:selectOneMenu id="status" value="#{carListBB.status}"
+						rendered="#{remoteClient.isInRole('Admin')}">
+						<f:selectItem itemLabel="Wolny" itemValue="0" />
+						<f:selectItem itemLabel="Zajęty" itemValue="1" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Szukaj" update="data-table"
+						styleClass="ui-button-secondary" />
+					<p:commandButton value="Usuń filtrowanie"
+						action="#{carListBB.clearFilter()}" update="@form data-table"
+						styleClass="ui-button-secondary" />
+				</h:panelGrid>
+			</h:form>
+		</p:panel>
+		<p:panel header="Panel administratora" toggleable="true"
+			collapsed="true" rendered="#{remoteClient.isInRole('Admin')}">
+	
+		
+		
+		<h:form>
+				<p:commandButton value="Dodaj nowy pojazd"
+					action="/pages/admin/CarNew?faces-redirect=true"
+					styleClass="ui-button-secondary" />
+		</h:form>
+			
+		</p:panel>
+		<p:panel>
+			<div class="card"> <h:form id="data-table">
+
+				<p:dataTable var="car" value="#{carListBB.lazycars}"
+					paginator="true" rows="4"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="4,8,12" selectionMode="single"
+					selection="#{carListBB.selectedCar}" id="carTable">
+					<p:ajax event="rowSelect" update="@form:carDetail"
+						oncomplete="PF('carDialog').show()" />
+
+					<p:column headerText="VIN: "
+						rendered="#{remoteClient.isInRole('Admin')}">
+						<h:outputText value="#{car.vin}"
+							rendered="#{remoteClient.isInRole('Admin')}" />
+					</p:column>
+
+					<p:column headerText="Marka">
+						<h:outputText value="#{car.model.brand}" />
+					</p:column>
+
+					<p:column headerText="Model">
+						<h:outputText value="#{car.model.nameModel}" />
+					</p:column>
+
+					<p:column headerText="Cena">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{car.price}" />
+					</p:column>
+
+					<p:column headerText="Status"
+						rendered="#{remoteClient.isInRole('Admin')}">
+						<h:outputText value="Zajęty" rendered="#{car.status == 1}" />
+						<h:outputText value="Wolny" rendered="#{car.status == 0}" />
+
+					</p:column>
+				</p:dataTable>
+
+				<p:dialog header="Samochód" widgetVar="carDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="carDetail" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty carListBB.selectedCar}"
+							columnClasses="label,value" style="width:100%">
+
+							<h:outputText value="VIN: "
+								rendered="#{remoteClient.isInRole('Admin')}" />
+							<h:outputText value="#{carListBB.selectedCar.vin}"
+								rendered="#{remoteClient.isInRole('Admin')}" />
+
+							<h:outputText value="Marka: " />
+							<h:outputText value="#{carListBB.selectedCar.model.brand}" />
+
+							<h:outputText value="Model: " />
+							<h:outputText value="#{carListBB.selectedCar.model.nameModel}" />
+
+
+							<h:outputText value="Cena: " />
+							<h:outputText value="#{carListBB.selectedCar.price} zł" />
+
+							<h:outputText value="Przebieg: " />
+							<h:outputText value="#{carListBB.selectedCar.mileage} km" />
+
+							<h:outputText value="Rok Produkcji: " />
+							<h:outputText value="#{carListBB.selectedCar.year_of_production}" />
+
+							<h:outputText value="Status: "
+								rendered="#{remoteClient.isInRole('Admin')}" />
+							<h:outputText value="Wolny"
+								rendered="#{(carListBB.selectedCar.status == 0) and (remoteClient.isInRole('Admin'))}" />
+							<h:outputText value="Zajęty"
+								rendered="#{(carListBB.selectedCar.status == 1) and (remoteClient.isInRole('Admin'))}" />
+
+						</p:panelGrid>
+						<p:divider
+							rendered="#{(remoteClient.isInRole('Admin')) and (carListBB.selectedCar.status == 1)}" />
+						<h:outputText value="Status wypożyczenia:"
+							rendered="#{carListBB.selectedCar.status == 1}" />
+						<ui:repeat var="rent"
+							value="#{carListBB.getRentInfo(carListBB.selectedCar)}"
+							rendered="#{(not empty carListBB.selectedCar) and (carListBB.selectedCar.status == 1)}">
+							<p:panelGrid columns="2"
+								style="border:1px solid black; margin: 10px auto;">
+								<h:outputText value="Imię" />
+								<h:outputText value="#{rent.client.firstName}" />
+								<h:outputText value="Data wypożyczenia: " />
+								<h:outputText value="#{rent.borrowDate}" />
+							</p:panelGrid>
+							<p:commandButton value="Oddaj ten samochód"
+								action="#{carRentedBB.carReturn(rent)}"
+								update="@form data-table:growl" style="margin-right: 2px;"
+								styleClass="ui-button-secondary"
+								rendered="#{(remoteClient.isInRole('Admin')) and (carListBB.selectedCar.status == 1)}" />
+				
+			
+						</ui:repeat>
+						
+						<ui:fragment rendered="#{(not empty carListBB.selectedCar.img) and carListBB.selectedCar.status== 0}"> 
+						<img src="#{carListBB.selectedCar.img}" id="imgcar"></img>
+						</ui:fragment>								
+						
+						<p:commandButton value="Wypożycz ten samochód"
+							action="#{carListBB.rentCar(carListBB.selectedCar)}"
+							style="margin-top: 20px;" styleClass="ui-button-outlined ui-button-warning" icon="pi pi-user"
+							rendered="#{remoteClient.isInRole('User')}" />
+			
+			
+						<p:commandButton value="Edytuj ten samochod"
+							action="#{carListBB.editCar(carListBB.selectedCar)}"
+							style="margin-top: 20px;" styleClass="ui-button-outlined ui-button-warning" icon="pi pi-user"
+							rendered="#{remoteClient.isInRole('Admin')}" />
+			
+						<p:commandButton value="Usuń ten samochod"
+							action="#{carListBB.deleteCar(carListBB.selectedCar)}"
+							update="@form data-table:growl" style="margin-top: 20px; margin-right: 2px;"
+							styleClass="ui-button-outlined ui-button-warning" icon="pi pi-user"
+							rendered="#{remoteClient.isInRole('Admin')}" />
+	
+
+				
+
+
+					</p:outputPanel>
+
+				</p:dialog>
+				<p:growl id="growl" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+			</h:form> </div>
+		</p:panel>
+
+	</ui:define>
+</ui:composition> </html>
+

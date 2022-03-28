@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <ui:composition
+	template="/templates/page-template.xhtml">
+	<ui:define name="pageContent">
+
+		<p:panel header="Filtr wyszukiwania:" toggleable="true"
+			collapsed="true">
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText value="Status" />
+					<p:selectOneMenu id="status" value="#{carRentedBB.status}">
+						<f:selectItem itemLabel="Oddany" itemValue="0" />
+						<f:selectItem itemLabel="Aktywny" itemValue="1" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:commandButton value="Szukaj" update="data-table"
+					styleClass="ui-button-secondary" />
+				<h:outputText
+					value="#{carRentedBB.setLogin(remoteClient.details.login)}"
+					id="login" />
+			</h:form>
+		</p:panel>
+
+		<p:panel>
+			<div class="card"> <h:form id="data-table">
+
+				<p:dataTable var="rent" value="#{carRentedBB.lazyrent}"
+					paginator="true" rows="4"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="4,8,12" selectionMode="single"
+					selection="#{carRentedBB.selectedRent}" id="rentTable">
+					<p:ajax event="rowSelect" update="@form:rentDetail"
+						oncomplete="PF('rentDialog').show()" />
+
+					<p:column headerText="Marka">
+						<h:outputText value="#{rent.car.model.brand}" />
+					</p:column>
+					<p:column headerText="Model">
+						<h:outputText value="#{rent.car.model.nameModel}" />
+					</p:column>
+
+
+				</p:dataTable>
+
+				<p:dialog header="Wypożyczenie" widgetVar="rentDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="rentDetail" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty carRentedBB.selectedRent}"
+							columnClasses="label,value" style="width:100%">
+
+							<h:outputText value="Marka: " />
+							<h:outputText value="#{carRentedBB.selectedRent.car.model.brand}" />
+
+							<h:outputText value="Model: " />
+							<h:outputText value="#{carRentedBB.selectedRent.car.model.nameModel}" />
+
+							<h:outputText value="Data Wypożyczenia: " />
+							<h:outputText value="#{carRentedBB.selectedRent.borrowDate}" />
+							
+							<h:outputText value="Data Zwrotu: " rendered="#{not empty carRentedBB.selectedRent.returnDate}"/>							
+							<h:outputText value="#{carRentedBB.selectedRent.returnDate} " rendered="#{not empty carRentedBB.selectedRent.returnDate}" />
+							
+							<h:outputText value="Cena: " />
+							<h:outputText value="#{carRentedBB.selectedRent.car.price} zł" />
+							
+
+						</p:panelGrid>
+						
+						<ui:fragment rendered="#{not empty carRentedBB.selectedRent.car.img}"> 
+						<img src="#{carRentedBB.selectedRent.car.img}" id="imgcar"></img>
+						</ui:fragment>	
+
+					</p:outputPanel>
+
+				</p:dialog>
+			</h:form> </div>
+		</p:panel>
+
+	</ui:define>
+</ui:composition> </html>
+
+
